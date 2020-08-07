@@ -8,10 +8,12 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Camera;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         ArrayList<String> permisos = new ArrayList<String>();
         permisos.add(Manifest.permission.CAMERA);
         permisos.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -71,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setAction(DownloadManager.ACTION_VIEW_DOWNLOADS);
         startActivity(intent);
-
     }
     public void BajarDoc(View view){
         //String url = "https://www.uteq.edu.ec/revistacyt/archivositio/instrucciones_arbitros.pdf";
@@ -90,7 +92,20 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this.getApplicationContext(),"Error: "  + e.getMessage(),Toast.LENGTH_LONG).show();
         }
+        /////////////////////////////
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        startActivityForResult(intent, 1);
 
     }
+    /*public static Camera getCameraInstance(){
+        Camera c = null;
+        try {
+            c = Camera.open(int); // attempt to get a Camera instance
+        }
+        catch (Exception e){
+            // Camera is not available (in use or does not exist)
+        }
+        return c; // returns null if camera is unavailable
+    }*/
 
 }
