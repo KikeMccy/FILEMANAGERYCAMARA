@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void BajarDoc(View view){
-        String url = "https://www.uteq.edu.ec/revistacyt/archivositio/instrucciones_arbitros.pdf";
-        //String url = "https://scielo.conicyt.cl/pdf/cienf/v10n1/art03.pdf";
+        //String url = "https://www.uteq.edu.ec/revistacyt/archivositio/instrucciones_arbitros.pdf";
+        String url = "https://scielo.conicyt.cl/pdf/cienf/v10n1/art03.pdf";
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         request.setDescription("PDF");
         request.setTitle("Pdf");
