@@ -35,46 +35,56 @@ public class MainActivity extends AppCompatActivity {
 
         getPermission(permisos);
     }
-    public void getPermission(ArrayList<String> permisosSolicitados){
+
+    public void getPermission(ArrayList<String> permisosSolicitados) {
 
         ArrayList<String> listPermisosNOAprob = getPermisosNoAprobados(permisosSolicitados);
-        if (listPermisosNOAprob.size()>0)
+        if (listPermisosNOAprob.size() > 0)
             if (Build.VERSION.SDK_INT >= 23)
                 requestPermissions(listPermisosNOAprob.toArray(new String[listPermisosNOAprob.size()]), 1);
 
     }
 
 
-    public ArrayList<String> getPermisosNoAprobados(ArrayList<String>  listaPermisos) {
+    public ArrayList<String> getPermisosNoAprobados(ArrayList<String> listaPermisos) {
         ArrayList<String> list = new ArrayList<String>();
-        for(String permiso: listaPermisos) {
+        for (String permiso : listaPermisos) {
             if (Build.VERSION.SDK_INT >= 23)
-                if(checkSelfPermission(permiso) != PackageManager.PERMISSION_GRANTED)
+                if (checkSelfPermission(permiso) != PackageManager.PERMISSION_GRANTED)
                     list.add(permiso);
 
         }
         return list;
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        String s="";
-        if(requestCode==1)    {
-            for(int i =0; i<permissions.length;i++) {
+        String s = "";
+        if (requestCode == 1) {
+            for (int i = 0; i < permissions.length; i++) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED)
-                    s=s + "OK " + permissions[i] + "\n";
+                    s = s + "OK " + permissions[i] + "\n";
                 else
-                    s=s + "NO  " + permissions[i] + "\n";
+                    s = s + "NO  " + permissions[i] + "\n";
             }
             Toast.makeText(this.getApplicationContext(), s, Toast.LENGTH_LONG).show();
         }
     }
 
-    public void MostrarDescargas(View view){
+    public void MostrarDescargas(View view) {
         Intent intent = new Intent();
         intent.setAction(DownloadManager.ACTION_VIEW_DOWNLOADS);
         startActivity(intent);
     }
+
+    public void ActivarCamara(
+    View view)
+    {
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        startActivityForResult(intent, 1);
+        }
+
     public void BajarDoc(View view){
         //String url = "https://www.uteq.edu.ec/revistacyt/archivositio/instrucciones_arbitros.pdf";
         String url = "https://scielo.conicyt.cl/pdf/cienf/v10n1/art03.pdf";
@@ -93,8 +103,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this.getApplicationContext(),"Error: "  + e.getMessage(),Toast.LENGTH_LONG).show();
         }
         /////////////////////////////
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        startActivityForResult(intent, 1);
+
 
     }
     /*public static Camera getCameraInstance(){
